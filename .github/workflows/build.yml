@@ -1,0 +1,27 @@
+name: Build Arlo3DS
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: devkitpro/devkitarm:latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Build Arlo3DS
+        run: make
+
+      - name: Upload Arlo3DS
+        uses: actions/upload-artifact@v4
+        with:
+          name: Arlo3DS
+          path: Arlo3DS.3dsx
